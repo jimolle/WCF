@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,31 +16,44 @@ namespace CompanyWebUI.Controllers
             string info;
             string info2;
 
-            using (var proxy = new ProductServiceClient())
+            try
             {
-                info = proxy.Endpoint.Binding.Name;
-                info2 = proxy.Endpoint.Address.Uri.ToString();
+                using (var proxy = new ProductServiceClient())
+                {
+                    products = proxy.GetAllProducts().ToList();
 
-                products = proxy.GetAllProducts().ToList();
+                    info = proxy.Endpoint.Binding.Name;
+                    info2 = proxy.Endpoint.Address.Uri.ToString();
+                }
+
             }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                // TODO kastar igen under debug...
+                throw;
+            }
+
             ViewBag.Info = info;
             ViewBag.Info2 = info2;
-
 
             return View(products);
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            List<Product> products;
 
-            return View();
+            using (var proxy = new ProductServiceClient())
+            {
+                products = proxy.GetAllProducts().Where(n => n.Category == "Verktyg och maskiner").ToList();
+            }
+            return View(products);
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }

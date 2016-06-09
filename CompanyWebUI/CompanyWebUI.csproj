@@ -228,8 +228,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <None Include="Service References\ServiceReference\BusinessObjects.xsd">
       <SubType>Designer</SubType>
     </None>

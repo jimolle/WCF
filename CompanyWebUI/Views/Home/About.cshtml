@@ -1,7 +1,13 @@
-﻿@{
-    ViewBag.Title = "About";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿@model IEnumerable<CompanyWebUI.ServiceReference.Product>
 
-<p>Use this area to provide additional information.</p>
+@{
+    ViewBag.Title = "Test";
+}
+<h2>Listing products in category: "Verktyg och maskiner"</h2>
+
+<ul>
+    @foreach (var product in Model)
+    {
+        <li>@product.Name, @product.Category, @product.Price</li>
+    }
+</ul>
