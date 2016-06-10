@@ -8,6 +8,14 @@ using System.Web;
 using System.Web.Mvc;
 using CompanyWebUI.ServiceReference;
 
+//TODO
+
+// Skriv en ny service för att söka efter en produkt?
+// Felhantering på serversidan
+// Felhantering på klientsidan
+// "Produktportalen ska stödja REST till klienterna", alltså är det väl overkill som jag gjort nu
+
+
 namespace CompanyWebUI.Controllers
 {
     public class HomeController : Controller
@@ -46,7 +54,11 @@ namespace CompanyWebUI.Controllers
             catch (Exception)
             {
                 
-                throw;
+                //throw;
+                return View(new List<Product>()
+                {
+                    new Product() {Name = "Servicen ligger nere, och vilken väg detta meddelande tog!"}
+                });
             }
 
 
@@ -72,7 +84,7 @@ namespace CompanyWebUI.Controllers
         }
 
         // AJAX ACTIONLINK
-        public ActionResult DailyDeal(string cat)
+        public ActionResult ShowByCategory(string cat)
         {
             //Verktyg och maskiner
             //Bygg och färg
@@ -96,19 +108,6 @@ namespace CompanyWebUI.Controllers
                 return PartialView("_DailyDeal", model);
             }
 
-        }
-        private Product GetDailyDeal()
-        {
-            Product product;
-
-            using (var proxy = new ProductServiceClient())
-            {
-                product = proxy.GetAllProducts().OrderBy(n => Guid.NewGuid()).First();
-            }
-
-            product.Price *= 666;
-            //throw new UnauthorizedAccessException();
-            return product;
         }
 
         //AJAX FORM

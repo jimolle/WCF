@@ -3,14 +3,8 @@
 };
 
 function searchFailed() {
-    $("#searchresults").html("Inget hittades, vängligen försök igen.");
+    $("#searchresults").html("Anropet misslyckades, vänligen försök igen.");
 }
-
-$(function() {
-    $("#testH2").mouseover(function () {
-        $(this).effect("bounce");
-    });
-});
 
 $("input[data-autocomplete-source]").each(function () {
     var target = $(this);

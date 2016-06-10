@@ -1,31 +1,75 @@
 ﻿@{
-    ViewBag.Title = "N/A";
+    ViewBag.Title = "Search";
 }
 <h2>Ajax ActionLink</h2>
 
+@*
+    Verktyg och maskiner
+    Bygg och färg
+    El och belysning
+    Trädgård
+    Fritid
+*@
+
+@Ajax.ActionLink("Verktyg och maskiner",
+    "ShowByCategory",
+    new { cat = "Verktyg och maskiner" },
+    new AjaxOptions
+    {
+        UpdateTargetId = "dailydeal",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "GET",
+        OnFailure = "ajaxError()"
+    },
+    new { @class = "btn btn-primary" })
+
+@Ajax.ActionLink("Bygg och färg",
+    "ShowByCategory",
+    new { cat = "Bygg och färg" },
+    new AjaxOptions
+    {
+        UpdateTargetId = "dailydeal",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "GET",
+        OnFailure = "ajaxError()"
+    },
+    new { @class = "btn btn-success" })
+
+@Ajax.ActionLink("El och belysning",
+    "ShowByCategory",
+    new { cat = "El och belysning" },
+    new AjaxOptions
+    {
+        UpdateTargetId = "dailydeal",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "GET",
+        OnFailure = "ajaxError()"
+    },
+    new { @class = "btn btn-info" })
+
 @Ajax.ActionLink("Fritid",
-        "DailyDeal",
-        new { cat = "Fritid" },
-        new AjaxOptions
-        {
-            UpdateTargetId = "dailydeal",
-            InsertionMode = InsertionMode.Replace,
-            HttpMethod = "GET",
-            OnFailure = "ajaxError()"
-        },
-        new { @class = "btn btn-primary" })
+    "ShowByCategory",
+    new { cat = "Fritid" },
+    new AjaxOptions
+    {
+        UpdateTargetId = "dailydeal",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "GET",
+        OnFailure = "ajaxError()"
+    },
+    new { @class = "btn btn-warning" })
 
 @Ajax.ActionLink("Trädgård",
-        "DailyDeal",
-        new { cat = "Trädgård" },
-        new AjaxOptions
-        {
-            UpdateTargetId = "dailydeal",
-            InsertionMode = InsertionMode.Replace,
-            HttpMethod = "GET",
-            OnFailure = "ajaxError()"
-        },
-        new { @class = "btn btn-primary" })
+    "ShowByCategory",
+    new { cat = "Trädgård" },
+    new AjaxOptions
+    {
+        UpdateTargetId = "dailydeal",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "GET",
+        OnFailure = "ajaxError()"
+    },
+    new { @class = "btn btn-danger" })
 <div id="dailydeal">
 </div>
 
@@ -34,20 +78,24 @@
 <h2>Ajax Form (With AutoComplete)</h2>
 <div class="panel-body">
     @using (Ajax.BeginForm("ProductSearch", "Home",
-                new AjaxOptions
-                {
-                    InsertionMode = InsertionMode.Replace,
-                    HttpMethod = "GET",
-                    OnFailure = "searchFailed()",
-                    LoadingElementId = "ajax-loader",
-                    UpdateTargetId = "searchresults",
-                }))
+                                                new AjaxOptions
+                                                {
+                                                    InsertionMode = InsertionMode.Replace,
+                                                    HttpMethod = "GET",
+                                                    OnFailure = "searchFailed()",
+                                                    LoadingElementId = "ajax-loader",
+                                                    UpdateTargetId = "searchresults",
+                                                }))
     {
-        <input type="text" name="q" data-autocomplete-source="@Url.Action("QuickSearch", "Home")" />
-        <input type="submit" value="Sök" />
-        <img id="ajax-loader"
-             src="@Url.Content("~/Content/Pics/ajax-loader.gif")"
-             style="display: none" />
+        <div class="input-group">
+            <input type="text" name="q" class="form-control" data-autocomplete-source="@Url.Action("QuickSearch", "Home")"/>
+            <span class="input-group-btn" style="width: 0;">
+                <input type="submit" class="btn btn-default" value="Sök" />
+                <img id="ajax-loader"
+                     src="@Url.Content("~/Content/Pics/ajax-loader.gif")"
+                     style="display: none" />
+            </span>
+        </div>
     }
     <div id="searchresults"></div>
 </div>
