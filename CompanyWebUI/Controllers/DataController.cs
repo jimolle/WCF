@@ -16,22 +16,18 @@ namespace CompanyWebUI.Controllers
         [AcceptVerbs("GET")]
         public IEnumerable<Product> GetAllProducts()
         {
-            IEnumerable<Product> products;
-
             try
             {
                 using (var proxy = new ProductServiceClient())
                 {
-                    products = proxy.GetAllProducts().ToList();
+                    var products = proxy.GetAllProducts().ToList();
+                    return products; ;
                 }
-                return products; ;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
-
-                // TODO kastar igen under debug...
-                throw;
+                return null;
             }
         }
 
@@ -39,21 +35,19 @@ namespace CompanyWebUI.Controllers
         [AcceptVerbs("GET")]
         public IEnumerable<Product> GetProducts(string search)
         {
-            IEnumerable<Product> products;
-
             try
             {
                 using (var proxy = new ProductServiceClient())
                 {
-                    products = proxy.GetAllProducts().Where(n => n.Name.ToUpper().Contains(search.ToUpper()));
+                    var products = proxy.GetAllProducts().Where(n => n.Name.ToUpper().Contains(search.ToUpper()));
+                    return products;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                Debug.WriteLine(ex.Message);
+                return null;
             }
-            return products;
         }
 
         //[Route("api/data/cat")]
@@ -68,13 +62,14 @@ namespace CompanyWebUI.Controllers
                 {
                     products = proxy.GetByCategory(search);
                 }
+                return products;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                Debug.WriteLine(ex.Message);
+                return null;
             }
-            return products;
+
         }
     }
 }
