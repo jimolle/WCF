@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using CompanyWebUI.ServiceReference;
@@ -41,20 +42,72 @@ namespace CompanyWebUI.Controllers
             return View(products);
         }
 
-        public ActionResult About()
+        public async Task<ActionResult> About()
         {
-            List<Product> products;
+            Product[] products;
 
             using (var proxy = new ProductServiceClient())
             {
-                products = proxy.GetAllProducts().Where(n => n.Category == "Verktyg och maskiner").ToList();
+                products = await proxy.GetByCategoryAsync("Verktyg och maskiner");
             }
+
             return View(products);
         }
 
+
+        // AJAX TESTPAGE HOME/CONTACT
         public ActionResult Contact()
         {
             return View();
         }
+
+        // AJAX ACTIONLINK
+        public ActionResult DailyDeal()
+        {
+            var product = GetDailyDeal();
+
+            return PartialView("_DailyDeal", product);
+        }
+        private Product GetDailyDeal()
+        {
+            Product product;
+
+            using (var proxy = new ProductServiceClient())
+            {
+                product = proxy.GetAllProducts().OrderBy(n => Guid.NewGuid()).First();
+            }
+
+            product.Price *= 666;
+            //throw new UnauthorizedAccessException();
+            return product;
+        }
+
+        //AJAX FORM
+        public ActionResult ProductSearch(string q)
+        {
+            var products = GetProducts(q);
+            return PartialView("_ProductSearch", products);
+        }
+
+        //AJAX AUTOCOMPLETE
+        public ActionResult QuickSearch(string term)
+        {
+            var products = GetProducts(term).Select(a => new { value = a.Name });
+            return Json(products, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        private static IEnumerable<Product> GetProducts(string searchString)
+        {
+            IEnumerable<Product> products;
+
+            using (var proxy = new ProductServiceClient())
+            {
+                products = proxy.GetAllProducts().Where(n => n.Name.ToUpper().Contains(searchString.ToUpper()));
+            }
+            return products;
+        }
+
     }
 }

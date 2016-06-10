@@ -52,6 +52,12 @@
   <wsdl:message name="IProductService_GetAllProducts_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllProductsResponse" />
   </wsdl:message>
+  <wsdl:message name="IProductService_GetByCategory_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetByCategory" />
+  </wsdl:message>
+  <wsdl:message name="IProductService_GetByCategory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetByCategoryResponse" />
+  </wsdl:message>
   <wsdl:portType name="IProductService">
     <wsdl:operation name="GetData">
       <wsdl:input wsaw:Action="http://tempuri.org/IProductService/GetData" message="tns:IProductService_GetData_InputMessage" />
@@ -60,6 +66,10 @@
     <wsdl:operation name="GetAllProducts">
       <wsdl:input wsaw:Action="http://tempuri.org/IProductService/GetAllProducts" message="tns:IProductService_GetAllProducts_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IProductService/GetAllProductsResponse" message="tns:IProductService_GetAllProducts_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetByCategory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProductService/GetByCategory" message="tns:IProductService_GetByCategory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProductService/GetByCategoryResponse" message="tns:IProductService_GetByCategory_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IProductService" type="tns:IProductService">
@@ -77,6 +87,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetAllProducts">
       <soap12:operation soapAction="http://tempuri.org/IProductService/GetAllProducts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetByCategory">
+      <soap12:operation soapAction="http://tempuri.org/IProductService/GetByCategory" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

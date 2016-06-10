@@ -20,5 +20,10 @@ namespace ProductService
         {
             return ProductList.Instance.ToList();
         }
+
+        public BusinessObjects.Product[] GetByCategory(string category)
+        {
+            return ProductList.Instance.Where(n => n.Category == category).ToArray();
+        }
     }
 }

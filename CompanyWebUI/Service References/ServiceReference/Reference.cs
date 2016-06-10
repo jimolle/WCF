@@ -105,6 +105,12 @@ namespace CompanyWebUI.ServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductService/GetAllProducts", ReplyAction="http://tempuri.org/IProductService/GetAllProductsResponse")]
         System.Threading.Tasks.Task<CompanyWebUI.ServiceReference.Product[]> GetAllProductsAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductService/GetByCategory", ReplyAction="http://tempuri.org/IProductService/GetByCategoryResponse")]
+        CompanyWebUI.ServiceReference.Product[] GetByCategory(string category);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductService/GetByCategory", ReplyAction="http://tempuri.org/IProductService/GetByCategoryResponse")]
+        System.Threading.Tasks.Task<CompanyWebUI.ServiceReference.Product[]> GetByCategoryAsync(string category);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -148,6 +154,14 @@ namespace CompanyWebUI.ServiceReference {
         
         public System.Threading.Tasks.Task<CompanyWebUI.ServiceReference.Product[]> GetAllProductsAsync() {
             return base.Channel.GetAllProductsAsync();
+        }
+        
+        public CompanyWebUI.ServiceReference.Product[] GetByCategory(string category) {
+            return base.Channel.GetByCategory(category);
+        }
+        
+        public System.Threading.Tasks.Task<CompanyWebUI.ServiceReference.Product[]> GetByCategoryAsync(string category) {
+            return base.Channel.GetByCategoryAsync(category);
         }
     }
 }

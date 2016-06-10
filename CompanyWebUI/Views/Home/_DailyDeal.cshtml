@@ -1,0 +1,19 @@
+﻿@model CompanyWebUI.ServiceReference.Product
+
+<div id="album-details">
+    <p>
+        <em>Name:</em>
+        @Model.Name
+    </p>
+    <p>
+
+        <em>Price:</em>
+        @String.Format("{0:F}", Model.Price)
+    </p>
+    <p>
+
+        <em>Cat:</em>
+        @Model.Category
+    </p>
+</div>
+

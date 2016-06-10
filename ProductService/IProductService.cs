@@ -17,7 +17,9 @@ namespace ProductService
         [OperationContract]
         List<BusinessObjects.Product> GetAllProducts();
 
-        // GetByCategory??
+        [OperationContract]
+        BusinessObjects.Product[] GetByCategory(string category);
+
         // GetBySearchString??
     }
 
