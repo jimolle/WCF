@@ -37,15 +37,7 @@ namespace CompanyWebUI.Controllers
 
         //[Route("Search")]
         [AcceptVerbs("GET")]
-        public IEnumerable<Product> GetProductsBySearch(string search)
-        {
-            var productsToReturn = GetProducts(search);
-
-            return productsToReturn;
-        }
-
-
-        private static IEnumerable<Product> GetProducts(string searchString)
+        public IEnumerable<Product> GetProducts(string search)
         {
             IEnumerable<Product> products;
 
@@ -53,7 +45,28 @@ namespace CompanyWebUI.Controllers
             {
                 using (var proxy = new ProductServiceClient())
                 {
-                    products = proxy.GetAllProducts().Where(n => n.Name.ToUpper().Contains(searchString.ToUpper()));
+                    products = proxy.GetAllProducts().Where(n => n.Name.ToUpper().Contains(search.ToUpper()));
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return products;
+        }
+
+        //[Route("api/data/cat")]
+        [AcceptVerbs("GET")]
+        public IEnumerable<Product> GetByCategory(string search)
+        {
+            IEnumerable<Product> products;
+
+            try
+            {
+                using (var proxy = new ProductServiceClient())
+                {
+                    products = proxy.GetByCategory(search);
                 }
             }
             catch (Exception)

@@ -1,19 +1,36 @@
-﻿@model CompanyWebUI.ServiceReference.Product
+﻿@model IEnumerable<CompanyWebUI.ServiceReference.Product>
 
-<div id="album-details">
-    <p>
-        <em>Name:</em>
-        @Model.Name
-    </p>
-    <p>
+<div id="dailydeal">
 
-        <em>Price:</em>
-        @String.Format("{0:F}", Model.Price)
-    </p>
-    <p>
+    <table class="table">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                Price
+            </th>
+        </tr>
 
-        <em>Cat:</em>
-        @Model.Category
-    </p>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.Category
+                </td>
+                <td>
+                    @item.Price
+                </td>
+            </tr>
+        }
+
+    </table>
+
+
 </div>
-

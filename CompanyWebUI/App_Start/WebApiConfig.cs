@@ -13,7 +13,7 @@ namespace CompanyWebUI
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{search}",
+                routeTemplate: "api/{controller}/{action}/{search}",
                 defaults: new { search = RouteParameter.Optional }
             );
         }

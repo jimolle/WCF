@@ -32,7 +32,7 @@ namespace CompanyWebUI.Controllers
                 {
                     var test = Url.RouteUrl(
                         "DefaultApi",
-                        new { httproute = "", controller = "Data" },
+                        new { httproute = "", controller = "Data", action = "GetAllProducts" },
                         Request.Url.Scheme
                     );
                     var model = client
@@ -66,17 +66,36 @@ namespace CompanyWebUI.Controllers
 
 
         // AJAX TESTPAGE HOME/CONTACT
-        public ActionResult Contact()
+        public ActionResult Search()
         {
             return View();
         }
 
         // AJAX ACTIONLINK
-        public ActionResult DailyDeal()
+        public ActionResult DailyDeal(string cat)
         {
-            var product = GetDailyDeal();
+            //Verktyg och maskiner
+            //Bygg och färg
+            //El och belysning
+            //Trädgård
+            //Fritid
 
-            return PartialView("_DailyDeal", product);
+            using (var client = new HttpClient())
+            {
+                var test = Url.RouteUrl(
+                    "DefaultApi",
+                    new { httproute = "", controller = "Data", action = "GetByCategory", search = cat },
+                    Request.Url.Scheme
+                );
+                var model = client
+                            .GetAsync(test)
+                            .Result
+                            .Content.ReadAsAsync<Product[]>().Result;
+
+
+                return PartialView("_DailyDeal", model);
+            }
+
         }
         private Product GetDailyDeal()
         {

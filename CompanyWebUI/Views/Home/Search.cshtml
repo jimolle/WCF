@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "N/A";
+}
+<h2>Ajax ActionLink</h2>
+
+@Ajax.ActionLink("Fritid",
+        "DailyDeal",
+        new { cat = "Fritid" },
+        new AjaxOptions
+        {
+            UpdateTargetId = "dailydeal",
+            InsertionMode = InsertionMode.Replace,
+            HttpMethod = "GET",
+            OnFailure = "ajaxError()"
+        },
+        new { @class = "btn btn-primary" })
+
+@Ajax.ActionLink("Trädgård",
+        "DailyDeal",
+        new { cat = "Trädgård" },
+        new AjaxOptions
+        {
+            UpdateTargetId = "dailydeal",
+            InsertionMode = InsertionMode.Replace,
+            HttpMethod = "GET",
+            OnFailure = "ajaxError()"
+        },
+        new { @class = "btn btn-primary" })
+<div id="dailydeal">
+</div>
+
+<hr />
+
+<h2>Ajax Form (With AutoComplete)</h2>
+<div class="panel-body">
+    @using (Ajax.BeginForm("ProductSearch", "Home",
+                new AjaxOptions
+                {
+                    InsertionMode = InsertionMode.Replace,
+                    HttpMethod = "GET",
+                    OnFailure = "searchFailed()",
+                    LoadingElementId = "ajax-loader",
+                    UpdateTargetId = "searchresults",
+                }))
+    {
+        <input type="text" name="q" data-autocomplete-source="@Url.Action("QuickSearch", "Home")" />
+        <input type="submit" value="Sök" />
+        <img id="ajax-loader"
+             src="@Url.Content("~/Content/Pics/ajax-loader.gif")"
+             style="display: none" />
+    }
+    <div id="searchresults"></div>
+</div>
+
+
+
+
+
+@section Scripts
+{
+    <script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+    <script src="~/Scripts/App/scripts.js"></script>
+}

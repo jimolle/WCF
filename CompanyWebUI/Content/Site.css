@@ -29,3 +29,14 @@ textarea {
     background-color: #2f4f4f;
     color: white;
 }*/
+
+.ui-helper-hidden-accessible {
+    display: none;
+}
+
+.ui-widget-content {
+    background-color: #333;
+    color: white;
+    width: 150px;
+    padding: 10px;
+}

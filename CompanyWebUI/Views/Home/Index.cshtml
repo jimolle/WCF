@@ -5,23 +5,23 @@
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>Hemtenta WCF och WEB API</h1>
+    <p class="lead">Bacon Lorem Ipsum...</p>
+    <p><a href="~/Home/Search/" class="btn btn-success btn-lg">Try the Service!</a></p>
 </div>
 
 <div class="row">
     <div class="col-md-5 col-sm-offset-1">
-        <h2>From service:</h2>
+        <h2>All products (from the service):</h2>
         <ul>
             @foreach (var product in Model)
             {
-                <li>@product.Name, @product.Category, @product.Price</li>
+                <li>@product.Name</li>
             }
         </ul>
     </div>
     <div class="col-md-5 col-sm-offset-1">
-        <h2>Info:</h2>
+        <h2>Endpoint-info:</h2>
         <p>Binding: @ViewBag.Info</p>
         <p>URI: @ViewBag.Info2</p>
 
