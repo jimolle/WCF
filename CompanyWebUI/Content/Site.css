@@ -22,3 +22,10 @@ select,
 textarea {
     max-width: 280px;
 }
+
+
+
+/*.ui-autocomplete-input {
+    background-color: #2f4f4f;
+    color: white;
+}*/

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -13,7 +14,6 @@ namespace CompanyWebUI.Controllers
     {
         public ActionResult Index()
         {
-            List<Product> products;
             string info;
             string info2;
 
@@ -21,25 +21,35 @@ namespace CompanyWebUI.Controllers
             {
                 using (var proxy = new ProductServiceClient())
                 {
-                    products = proxy.GetAllProducts().ToList();
-
                     info = proxy.Endpoint.Binding.Name;
                     info2 = proxy.Endpoint.Address.Uri.ToString();
                 }
 
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
+                ViewBag.Info = info;
+                ViewBag.Info2 = info2;
 
-                // TODO kastar igen under debug...
+                using (var client = new HttpClient())
+                {
+                    var test = Url.RouteUrl(
+                        "DefaultApi",
+                        new { httproute = "", controller = "Data" },
+                        Request.Url.Scheme
+                    );
+                    var model = client
+                                .GetAsync(test)
+                                .Result
+                                .Content.ReadAsAsync<Product[]>().Result;
+
+                    return View(model);
+                }
+            }
+            catch (Exception)
+            {
+                
                 throw;
             }
 
-            ViewBag.Info = info;
-            ViewBag.Info2 = info2;
 
-            return View(products);
         }
 
         public async Task<ActionResult> About()
